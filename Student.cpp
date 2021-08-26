@@ -133,8 +133,8 @@ cout << "Operation OK!" << endl;
 for (auto it : potentialOfferId) {
 cout << it << "\n";
 }
-return potentialOfferId;
 sqlite3_close(DB);
+return potentialOfferId;
 }
 
 static int insertCallback(void* NotUsed, int argc, char** argv, char** azColName) {

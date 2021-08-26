@@ -2,7 +2,6 @@
 #include <iostream>
 #include <vector>
 #include "Date.h"
-#include "Skill.h"
 #include "Eligibility.h"
 //#include"Offer.h"
 #include <sqlite3.h>

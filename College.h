@@ -10,7 +10,7 @@ private:
 	int collegeCode;
 	string collegeEmail;
 	string phoneNumber;
-	// vector<Student> studentList;
+	vector<Student> studentList;
 
 public:
 

@@ -1,7 +1,5 @@
 #pragma once
 #include <iostream>
-
-#include "Skill.h"
 #include <map>
 using namespace std;
 //add comments
