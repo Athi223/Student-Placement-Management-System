@@ -1,10 +1,6 @@
 #pragma once
-#include <iostream>
 #include <vector>
-#include "Date.h"
 #include "Eligibility.h"
-//#include"Offer.h"
-#include <sqlite3.h>
 
 using namespace std;
 
@@ -17,7 +13,7 @@ private:
 	int studentId;
 	string studentEmail;
 	string studentPhoneNumber;
-	Date DOB;
+	string DOB;
 	string studentDepartment;
 	Eligibility studentAcademicDetails; // data member describing student academic details
 	vector<int> potentialOfferId;
@@ -26,7 +22,7 @@ private:
 public:
 	//make get method const
 	Student();
-	Student(string, int, string, string, Date, string, const Eligibility &);
+	Student(string, int, string, string, string, string, const Eligibility &);
 	Student(const Student &) = default;
 	void setName(string);
 	string getName();
@@ -36,11 +32,12 @@ public:
 	string getEmail();
 	void setPhoneNumber(string);
 	string getPhoneNumber();
-	void setDOB(Date);
-	Date getDate();
+	void setDOB(string);
+	string getDOB();
 	void setAcademicDetails(Eligibility);
 	Eligibility getAcademicDetails();
 	vector<int> getApplicableOffers();
 	void apply(int);
 	static int callback(void *, int, char **, char **);
+	static int insertCallback(void *, int, char **, char **);
 };

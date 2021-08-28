@@ -3,14 +3,17 @@
 #include <cstring>
 #include <string>
 #include <vector>
+#include <pybind11/pybind11.h>
+#include <pybind11/operators.h>
+#include <pybind11/stl.h>
 using namespace std;
+namespace py = pybind11;
 
-Eligibility::Eligibility(double cgpa, int lb, int db, int yP, int yG, string skillSet) : CGPA(cgpa), liveBackLog(lb), deadBackLog(db), yearGap(yG), passingYear(yP)
+Eligibility::Eligibility(double cgpa, int lb, int db, int yP, int yG, string skillSet) : CGPA(cgpa), liveBackLog(lb), deadBackLog(db), passingYear(yP), yearGap(yG)
 {
 	//skill1:level1,skill2:level2...
 	char *token;
 	const char *delim = ",";
-	char *next_token;
 	token = strtok(const_cast<char *>(skillSet.c_str()), delim);
 	while (token != NULL)
 	{
@@ -23,7 +26,7 @@ Eligibility::Eligibility(double cgpa, int lb, int db, int yP, int yG, string ski
 
 Eligibility::Eligibility() = default;
 
-Eligibility::Eligibility(const Eligibility &e) : CGPA(e.CGPA), liveBackLog(e.liveBackLog), deadBackLog(e.deadBackLog), yearGap(e.yearGap), passingYear(e.passingYear)
+Eligibility::Eligibility(const Eligibility &e) : CGPA(e.CGPA), liveBackLog(e.liveBackLog), deadBackLog(e.deadBackLog), passingYear(e.passingYear), yearGap(e.yearGap)
 {
 	for (auto it : e.skillExpertiseMap)
 	{
@@ -49,7 +52,6 @@ void Eligibility::operator=(const Eligibility &e)
 */
 bool Eligibility::operator==(const Eligibility &e) const
 {
-	cout << "in ==\n";
 	if (CGPA >= e.CGPA && liveBackLog <= e.liveBackLog && deadBackLog <= e.deadBackLog && yearGap <= e.yearGap && passingYear == e.passingYear)
 	{
 		for (auto it : e.skillExpertiseMap)
@@ -112,7 +114,47 @@ void Eligibility::setYearGap(int yg)
 	yearGap = yg;
 }
 
+int Eligibility::getPassingYear()
+{
+	return passingYear;
+}
+void Eligibility::setPassingYear(int yp)
+{
+	passingYear = yp;
+}
+
+map<string, int> Eligibility::getSkillExpertiseMap()
+{
+	return skillExpertiseMap;
+}
+
+void Eligibility::setSkillExpertiseMap(map<string, int> sEM)
+{
+	skillExpertiseMap = sEM;
+}
+
 void Eligibility::addSkill(string skillName, string skillLevel)
 {
 	skillExpertiseMap[skillName] = stoi(skillLevel);
+}
+
+PYBIND11_MODULE(Eligibility, m)
+{
+	py::class_<Eligibility>(m, "Eligibility")
+		.def(py::init())
+		.def(py::init<const float &, const int &, const int &, const int &, const int &, const string &>())
+		.def(py::self == py::self)
+		.def("setCGPA", &Eligibility::setCGPA)
+		.def("getCGPA", &Eligibility::getCGPA)
+		.def("setLiveBackLog", &Eligibility::setLiveBackLog)
+		.def("getLiveBackLog", &Eligibility::getLiveBackLog)
+		.def("setDeadBackLog", &Eligibility::setDeadBackLog)
+		.def("getDeadBackLog", &Eligibility::getDeadBackLog)
+		.def("setPassingYear", &Eligibility::setPassingYear)
+		.def("getPassingYear", &Eligibility::getPassingYear)
+		.def("getYearGap", &Eligibility::getYearGap)
+		.def("setYearGap", &Eligibility::setYearGap)
+		.def("getSkillExpertiseMap", &Eligibility::getSkillExpertiseMap)
+		.def("setSkillExpertiseMap", &Eligibility::setSkillExpertiseMap)
+		.def("addSkill", &Eligibility::addSkill);
 }

@@ -29,6 +29,10 @@ public:
 	void setDeadBackLog(int);
 	int getDeadBackLog();
 	int getYearGap();
+	int getPassingYear();
+	void setPassingYear(int);
 	void setYearGap(int);
+	map<string, int> getSkillExpertiseMap();
+	void setSkillExpertiseMap(map<string, int>);
 	void addSkill(string, string);
 };
