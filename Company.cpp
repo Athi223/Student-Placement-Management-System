@@ -1,8 +1,6 @@
 #include <iostream>
-#include <string.h>
 #include "Company.h"
 #include <vector>
-#include <set>
 #include <sqlite3.h>
 using namespace std;
 
@@ -71,14 +69,14 @@ vector<Offer> const Company::getOffers()
 	return offers;
 }
 
-void Company::setPlacedStudents(set<int> studentIdList, int offerId)
+void Company::setPlacedStudents(vector<int> studentIdList, int offerId)
 {
 	char *messageError;
 	sqlite3 *DB;
 	int exit = 0;
-	exit = sqlite3_open("example.db", &DB);
+	exit = sqlite3_open("db.sqlite3", &DB);
 
-	set<int>::iterator itr;
+	vector<int>::iterator itr;
 	string query;
 
 	try

@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
-#include "Student.h"
+#include <vector>
+#include <array>
 using namespace std;
 
 class College
@@ -10,14 +11,13 @@ private:
 	int collegeCode;
 	string collegeEmail;
 	string phoneNumber;
-	vector<Student> studentList;
 
 public:
 
 	// Constructors
 	College() = default; 									 	// Default 
-	College(string, int, string, string, vector<Student>);		// Parameterized
-	College(const College&) = default;								// Copy
+	College(string, int, string, string);						// Parameterized
+	College(const College&) = default;							// Copy
 
 	// Setter and Getter methods
 	void setName(string);
@@ -28,10 +28,9 @@ public:
 	int getCollegeCode();
 	string getEmail();
 	string getPhoneNumber();
-	void verify();
+	array<vector<int>, 2> verify();
 	void viewEnrolledStudents();
 	void updateStudentPlacedStatus();
-
 	//Destructor
 	~College() = default;
 };

@@ -3,7 +3,6 @@
 #include<iostream>
 #include"Offer.h"
 #include<vector>
-#include<set>
 using namespace std;
 
 class Company
@@ -28,7 +27,7 @@ public:
 	string const getPhoneNumber();
 	vector<Offer> const getOffers();
 
-	void setPlacedStudents(set<int>, int);
+	void setPlacedStudents(vector<int>, int);
 	void showAppliedStudents(int);
 
 	~Company() = default;									//Destructor
